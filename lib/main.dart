@@ -21,7 +21,7 @@ class _SunflowerState extends State<Sunflower> {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          brightness: Brightness.light,
+          brightness: Brightness.dark,
           appBarTheme: const AppBarTheme(elevation: 2),
         ),
         debugShowCheckedModeBanner: false,
@@ -74,16 +74,17 @@ class SunflowerWidget extends StatelessWidget {
     for (var i = 0; i < seeds; i++) {
       final theta = i * tau / phi;
       final r = math.sqrt(i) * scaleFactor;
+
       seedWidgets.add(AnimatedAlign(
         key: ValueKey(i),
         duration: Duration(microseconds: rng.nextInt(500) + 250),
         curve: Curves.easeInOut,
-        alignment: Alignment(r + math.cos(theta), -1 * r * math.sin(theta)),
+        alignment: Alignment(r * math.cos(theta), -1 * r * math.sin(theta)),
         child: const Dot (true),));
     }
     for (var j = seeds; j < maxSeeds; j++) {
-      final x = math.cos(tau + j / (maxSeeds - 1)) * 0.9;
-      final y = math.sin(tau + j / (maxSeeds - 1)) * 0.9;
+      final x = math.cos(tau * j / (maxSeeds - 1)) * 0.9;
+      final y = math.sin(tau * j / (maxSeeds - 1)) * 0.9;
       seedWidgets.add(AnimatedAlign(
         key: ValueKey(j),
         curve: Curves.easeInOut,
